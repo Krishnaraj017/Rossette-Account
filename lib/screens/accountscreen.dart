@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'device.dart';
+
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
@@ -8,7 +10,14 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  int _selectedIndex = 0;
+    int _selectedIndex = 0;
+
+  void _handleSelectionChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -47,26 +56,9 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 10,
-                  height: 10,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFBBF246),
-                    shape: BoxShape.circle,
-                  ),
-                  margin: const EdgeInsets.only(right: 8),
-                ),
-                const Text(
-                  "Device connected",
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+               DeviceStatusContainer(
+              onSelectionChanged: _handleSelectionChanged,
+              selectedIndex: _selectedIndex,
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 17),
@@ -96,7 +88,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             'assets/person-standing 1.png', "Accessibility", 3),
                         _buildImageRow(
                             'assets/communities 1.png', "Community", 4),
-                        _buildImageRow('assets/setting2.png', "Settings", 5),
+                       _buildImageRow('assets/setting2.png', "Settings", 5),
                       ]
                           .map((widget) => Container(
                                 decoration: const BoxDecoration(
@@ -116,7 +108,7 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(bottom: 30,left: 15,right: 15),
+        padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25),
           child: BottomAppBar(
@@ -128,8 +120,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 IconButton(
                   icon: Image.asset(
                     'assets/home-button.png',
-                    color:
-                        _selectedIndex == 0 ? const Color(0xFFBBF246) : Colors.white,
+                    color: _selectedIndex == 0
+                        ? const Color(0xFFBBF246)
+                        : Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -140,8 +133,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 IconButton(
                   icon: Image.asset(
                     'assets/Variant2.png',
-                    color:
-                        _selectedIndex == 1 ? const Color(0xFFBBF246) : Colors.white,
+                    color: _selectedIndex == 1
+                        ? const Color(0xFFBBF246)
+                        : Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -152,8 +146,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 IconButton(
                   icon: Image.asset(
                     'assets/bubble.png',
-                    color:
-                        _selectedIndex == 2 ? const Color(0xFFBBF246) : Colors.white,
+                    color: _selectedIndex == 2
+                        ? const Color(0xFFBBF246)
+                        : Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -164,8 +159,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 IconButton(
                   icon: Image.asset(
                     'assets/Profilenav.png',
-                    color:
-                        _selectedIndex == 3 ? const Color(0xFFBBF246) : Colors.white,
+                    color: _selectedIndex == 3
+                        ? const Color(0xFFBBF246)
+                        : Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -176,8 +172,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 IconButton(
                   icon: Image.asset(
                     'assets/Profilebar.png',
-                    color:
-                        _selectedIndex == 4 ? const Color(0xFFBBF246) : Colors.white,
+                    color: _selectedIndex == 4
+                        ? const Color(0xFFBBF246)
+                        : Colors.white,
                   ),
                   onPressed: () {
                     setState(() {
@@ -205,9 +202,10 @@ class _AccountScreenState extends State<AccountScreen> {
           const Icon(
             Icons.arrow_forward_ios,
             size: 13,
-            
           ),
-          const SizedBox(width: 35,)
+          const SizedBox(
+            width: 35,
+          )
         ],
       ),
     );
