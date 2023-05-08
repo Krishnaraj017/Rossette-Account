@@ -1,5 +1,10 @@
+// ignore: file_names
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
+import 'accountlist.dart';
+import 'bottomnavigationbar.dart';
 import 'device.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -10,14 +15,13 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-    int _selectedIndex = 0;
+  int _selectedIndex = 0;
 
   void _handleSelectionChanged(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,8 @@ class _AccountScreenState extends State<AccountScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 0.1),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.001),
+
             Center(
               child: Container(
                 width: 123,
@@ -42,7 +47,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 0.001),
             const Padding(
               padding: EdgeInsets.only(left: 1.0),
               child: Center(
@@ -55,12 +60,13 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 4),
-               DeviceStatusContainer(
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+
+            DeviceStatusContainer(
               onSelectionChanged: _handleSelectionChanged,
               selectedIndex: _selectedIndex,
             ),
-            Container(
+           Container(
               margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 17),
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               decoration: BoxDecoration(
@@ -70,122 +76,21 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               child: Column(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF3F8FF),
-                      border: Border(
-                        bottom: BorderSide(color: Colors.grey),
-                      ),
-                    ),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        _buildImageRow('assets/Profile.png', "Profile", 0),
-                        _buildImageRow('assets/devices.png', "Device", 1),
-                        _buildImageRow(
-                            'assets/notification 1.png', "Notification", 2),
-                        _buildImageRow(
-                            'assets/person-standing 1.png', "Accessibility", 3),
-                        _buildImageRow(
-                            'assets/communities 1.png', "Community", 4),
-                       _buildImageRow('assets/setting2.png', "Settings", 5),
-                      ]
-                          .map((widget) => Container(
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(color: Colors.grey),
-                                  ),
-                                ),
-                                child: widget,
-                              ))
-                          .toList(),
-                    ),
-                  ),
+                  const AccountList(),
                 ],
               ),
             ),
+
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(bottom: 30, left: 15, right: 15),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
-          child: BottomAppBar(
-            color: const Color(0xFF0093E5),
-            shape: const CircularNotchedRectangle(),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                IconButton(
-                  icon: Image.asset(
-                    'assets/home-button.png',
-                    color: _selectedIndex == 0
-                        ? const Color(0xFFBBF246)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 0;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/Variant2.png',
-                    color: _selectedIndex == 1
-                        ? const Color(0xFFBBF246)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 1;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/bubble.png',
-                    color: _selectedIndex == 2
-                        ? const Color(0xFFBBF246)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 2;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/Profilenav.png',
-                    color: _selectedIndex == 3
-                        ? const Color(0xFFBBF246)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 3;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'assets/Profilebar.png',
-                    color: _selectedIndex == 4
-                        ? const Color(0xFFBBF246)
-                        : Colors.white,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 4;
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onIndexChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
       ),
     );
   }
